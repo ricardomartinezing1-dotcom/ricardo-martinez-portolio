@@ -31,6 +31,8 @@
   --color-gray:    #8A9B8E;
   --color-border:  #D6E4D9;
   --color-white:   #FFFFFF;
+  --color-mist:    #EEF3EB;
+  --surface-mist:  var(--color-mist);   /* lang-toggle / nav-item hover bg */
 
   --bg-page:      var(--color-neutral);
   --bg-surface:   var(--color-white);

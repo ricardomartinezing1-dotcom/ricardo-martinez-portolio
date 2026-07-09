@@ -1597,6 +1597,12 @@ function Hero({ onPrimary, onGhost }) {
   /* Slide pill whenever activeTab changes */
   useEffect(() => { movePill(activeTab); }, [activeTab]);
 
+  /* Re-measure the pill when the language changes (tab labels change width) */
+  useEffect(() => {
+    movePill(activeTab, true);
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(() => movePill(activeTab, true));
+  }, [lang]);
+
   /* ── Parallax on hero image ─────────────────────────────────────────────
      Inner <img> is scaled up so there's room to translate vertically with
      scroll without exposing the frame edges. Tied to ScrollTrigger scrub.  */
@@ -1802,34 +1808,46 @@ const SELECTED_PROJECTS = [
   {
     id: 'homecheck', name: 'HomeCheck', mark: 'Hc',
     title: 'A partial home inspection report that helps buyers decide',
+    title_es: 'Un informe parcial del estado de la vivienda que ayuda a decidir al comprador',
     meta: 'Product Design Lead · 2026',
+    meta_es: 'Lead de Diseño de Producto · 2026',
     desc: 'A B2C product that adds value during the property appraisal process — surfacing the condition of the home so buyers can make better decisions.',
+    desc_es: 'Un producto B2C que aporta valor durante el proceso de tasación — mostrando el estado de la vivienda para que el comprador decida mejor.',
     bg: '#1C1C2E', fg: '#B8F300',
     cover: 'assets/caratulas/Caratula-homecheck-1.jpg',
     tags: ['B2C', 'PropTech', 'Real Estate'],
     details: 'A partial inspection report designed to give homebuyers clarity during the appraisal stage — turning an opaque, professional-only step into something actionable for end users.',
+    details_es: 'Un informe de inspección parcial diseñado para dar claridad al comprador durante la fase de tasación — convirtiendo un paso opaco y solo para profesionales en algo accionable para el usuario final.',
     caseStudyHref: 'homecheck.html',
   },
   {
     id: 'vega', name: 'Vega Research', mark: 'V',
     title: 'Rebuilding a research platform from the ground up',
+    title_es: 'Reconstruir una plataforma de investigación desde cero',
     meta: 'Product Design Lead · 2024',
+    meta_es: 'Lead de Diseño de Producto · 2024',
     desc: 'Three-phase migration driven by deep user research. Phase one — migration, restyling, minor updates — shipped. Phase two in progress.',
+    desc_es: 'Migración en tres fases impulsada por investigación profunda de usuario. Fase uno — migración, restyling, mejoras menores — lanzada. Fase dos en curso.',
     bg: '#2D6A4F', fg: '#F5F5F0',
     cover: 'assets/caratulas/Caratula-Vega-grey.png',
     tags: ['Research', 'Migration', 'Design System'],
     details: 'We launched the project with research to identify needs, constraints, and usability improvements. A three-phase plan was set: phase one (migration, restyling, minor updates) is complete, and we\'re preparing for phase two.',
+    details_es: 'Arrancamos el proyecto con investigación para identificar necesidades, restricciones y mejoras de usabilidad. Se fijó un plan en tres fases: la fase uno (migración, restyling, mejoras menores) está completa, y preparamos la fase dos.',
     caseStudyHref: 'vega.html',
   },
   {
     id: 'optimus', name: 'Optimus', mark: 'O',
     title: 'Sustaining a critical property-valuation tool for four years',
+    title_es: 'Sostener durante cuatro años una herramienta de tasación crítica',
     meta: 'Lead Designer · 2022 — Present',
+    meta_es: 'Diseñador líder · 2022 — Actualidad',
     desc: 'Lead designer of Tinsa\'s valuation desktop app — a hyper-complex, regulated system (ECO standards, Bank of Spain oversight). Evolving it without breaking it, and building the UI kit now shared across three products.',
+    desc_es: 'Diseñador líder de la app de escritorio de tasación de Tinsa — un sistema hipercomplejo y regulado (normas ECO, supervisión del Banco de España). Evolucionándola sin romperla, y construyendo el UI kit hoy compartido entre tres productos.',
     bg: '#0F1A10', fg: '#B8F300',
     cover: 'assets/caratulas/caratula-Optimus.jpg',
     tags: ['Real Estate', 'Regulated', 'Design System'],
     details: 'I inherited Optimus mid-flight and have sustained it as lead designer ever since: adding complex casuistry (new property types, valuations by state) to a fragile, regulated machine without breaking it, and building from scratch the UI kit now shared across Optimus, Pickup and Jazz.',
+    details_es: 'Heredé Optimus en marcha y lo he sostenido como diseñador líder desde entonces: añadiendo casuística compleja (nuevos tipos de inmueble, valoraciones por estado) a una máquina frágil y regulada sin romperla, y construyendo desde cero el UI kit hoy compartido entre Optimus, Pickup y Jazz.',
     caseStudyHref: 'optimus.html',
   },
 ];
@@ -2098,7 +2116,8 @@ function WorkSection({ onOpen }) {
 
 /* ── Side Showcase section ───────────────────────────────────────────────── */
 function SideShowcaseSection() {
-  const { t } = useT();
+  const { t, lang } = useT();
+  const es = lang === 'es';
   const showcaseRef = useRef(null);
   const trackRef    = useRef(null);
   const cursorRef   = useRef(null);
@@ -2295,9 +2314,9 @@ function SideShowcaseSection() {
                     </div>
                   )}
                   <div className="side-overlay">
-                    <span className="side-ov-label">{p.meta}</span>
+                    <span className="side-ov-label">{es && p.meta_es ? p.meta_es : p.meta}</span>
                     <h3 className="side-ov-title sc-title">{p.name}</h3>
-                    <p className="side-ov-desc sc-desc">{p.desc}</p>
+                    <p className="side-ov-desc sc-desc">{es && p.desc_es ? p.desc_es : p.desc}</p>
                   </div>
                 </Card>
               </div>
@@ -2479,38 +2498,43 @@ function TimelineRow({ year, title, org, text, sections, defaultOpen = false }) 
 /* ── Background section ──────────────────────────────────────────────────── */
 const CAREER = [
   {
-    role: 'Mid-senior product designer',
+    role: 'Mid-senior product designer', role_es: 'Diseñador de producto mid-senior',
     org: 'Icarus HS',
-    range: '2020 — Present',
+    range: '2020 — Present', range_es: '2020 — Actualidad',
     sections: [
       {
-        title: 'The journey',
+        title: 'The journey', title_es: 'El recorrido',
         body: "I've spent 6 years at the same company, and that doesn't happen by accident.\n\nI joined straight out of university doing UX, pretty much finding my way as I went. Over time I came to understand that design doesn't start with wireframes — it starts much earlier: understanding the problem properly, asking the right questions, knowing when it's too soon to design anything at all. That naturally led me towards product design, with more involvement in definition and strategy.",
+        body_es: "Llevo 6 años en la misma empresa, y eso no pasa por casualidad.\n\nEntré recién salido de la universidad haciendo UX, prácticamente encontrando el camino sobre la marcha. Con el tiempo entendí que el diseño no empieza por los wireframes — empieza mucho antes: entender bien el problema, hacer las preguntas correctas, saber cuándo es demasiado pronto para diseñar nada. Eso me llevó de forma natural hacia el diseño de producto, con más implicación en la definición y la estrategia.",
       },
       {
-        title: 'The role',
+        title: 'The role', title_es: 'El rol',
         body: "I've worked on complex B2B products and on products built for everyday users. Depending on the project and the team, my role shifted: sometimes more hands-on, sometimes more strategic, always adapting to what the project needed at that moment.",
+        body_es: "He trabajado en productos B2B complejos y en productos para usuarios de a pie. Según el proyecto y el equipo, mi rol cambiaba: a veces más práctico, a veces más estratégico, siempre adaptándome a lo que el proyecto necesitaba en ese momento.",
       },
       {
-        title: 'The team',
+        title: 'The team', title_es: 'El equipo',
         body: "I've also had the chance to lead a design team — mentoring others, shaping how we work, and advocating for design in front of stakeholders. It's been just as formative as the work itself.\n\nAt Icarus we have a strong product culture, and that shows in how decisions get made and in the real weight design carries within the company.",
+        body_es: "También he tenido la oportunidad de liderar un equipo de diseño — mentorizar a otros, dar forma a cómo trabajamos y defender el diseño ante los stakeholders. Ha sido tan formativo como el propio trabajo.\n\nEn Icarus tenemos una cultura de producto fuerte, y eso se nota en cómo se toman las decisiones y en el peso real que tiene el diseño dentro de la empresa.",
       },
       {
-        title: 'What has shaped me most',
+        title: 'What has shaped me most', title_es: 'Lo que más me ha marcado',
         body: "Having the freedom to get things wrong. Óscar, my manager, gave me a level of trust from the very beginning that you don't find everywhere. Learning without fear changes how you grow — and it's something I'll always be grateful for.",
+        body_es: "Tener la libertad de equivocarme. Óscar, mi manager, me dio desde el principio un nivel de confianza que no se encuentra en cualquier sitio. Aprender sin miedo cambia cómo creces — y es algo que siempre agradeceré.",
       },
     ],
   },
 ];
 const EDUCATION = [
-  { title: 'Advanced Product Design', org: 'Mr Marcell School', year: '2024', text: "While the technical knowledge was invaluable, what I value most wasn't in any slide or PDF. As the motto says, 'Always with cariño' — it's about focusing on the human factor." },
-  { title: "Master's in Graphic Design", org: 'Labasad', year: '2022', text: "I learned the fundamentals of graphic design that helped me create more attractive and coherent interfaces." },
-  { title: 'UX/UI Bootcamp', org: 'IronHack Madrid', year: '2019', text: "Almost by accident, I discovered my passion at IronHack: human-centred design. A challenging stage where I took my first steps in the world of design." },
-  { title: 'Cross-platform App Dev', org: 'European University', year: '2017 — 2019', text: "I gained a deep understanding of how everyday applications work and built an app for managing shared flats." },
+  { title: 'Advanced Product Design', title_es: 'Diseño de Producto Avanzado', org: 'Mr Marcell School', year: '2024', text: "While the technical knowledge was invaluable, what I value most wasn't in any slide or PDF. As the motto says, 'Always with cariño' — it's about focusing on the human factor.", text_es: "Aunque el conocimiento técnico fue valiosísimo, lo que más valoro no estaba en ninguna slide ni PDF. Como dice el lema, «Siempre con cariño» — va de poner el foco en el factor humano." },
+  { title: "Master's in Graphic Design", title_es: 'Máster en Diseño Gráfico', org: 'Labasad', year: '2022', text: "I learned the fundamentals of graphic design that helped me create more attractive and coherent interfaces.", text_es: "Aprendí los fundamentos del diseño gráfico que me ayudaron a crear interfaces más atractivas y coherentes." },
+  { title: 'UX/UI Bootcamp', title_es: 'Bootcamp UX/UI', org: 'IronHack Madrid', year: '2019', text: "Almost by accident, I discovered my passion at IronHack: human-centred design. A challenging stage where I took my first steps in the world of design.", text_es: "Casi por casualidad, descubrí mi pasión en IronHack: el diseño centrado en las personas. Una etapa exigente donde di mis primeros pasos en el mundo del diseño." },
+  { title: 'Cross-platform App Dev', title_es: 'Desarrollo de Apps Multiplataforma', org: 'European University', year: '2017 — 2019', text: "I gained a deep understanding of how everyday applications work and built an app for managing shared flats.", text_es: "Entendí a fondo cómo funcionan las aplicaciones del día a día y construí una app para gestionar pisos compartidos." },
 ];
 
 function BackgroundSection() {
-  const { t } = useT();
+  const { t, lang } = useT();
+  const es = lang === 'es';
   const cardRef = useRef(null);
 
   useLayoutEffect(() => {
@@ -2551,13 +2575,14 @@ function BackgroundSection() {
         <div className="bg-group gf">
           <p className="bg-group-title">{t('careerLabel')}</p>
           {CAREER.map((c, i) => (
-            <TimelineRow key={c.role} year={c.range} title={c.role} org={c.org} text={c.text} sections={c.sections} />
+            <TimelineRow key={c.role} year={es ? c.range_es : c.range} title={es ? c.role_es : c.role} org={c.org}
+              sections={c.sections.map(s => ({ title: es ? s.title_es : s.title, body: es ? s.body_es : s.body }))} />
           ))}
         </div>
         <div className="bg-group gf">
           <p className="bg-group-title">{t('educationLabel')}</p>
           {EDUCATION.map(e => (
-            <TimelineRow key={e.title} year={e.year} title={e.title} org={e.org} text={e.text} />
+            <TimelineRow key={e.title} year={e.year} title={es ? e.title_es : e.title} org={e.org} text={es ? e.text_es : e.text} />
           ))}
         </div>
       </div>
@@ -2567,25 +2592,27 @@ function BackgroundSection() {
 
 /* ── Testimonials ────────────────────────────────────────────────────────── */
 const QUOTES = [
-  { text: 'Ricardo is one of those people who leave a mark — a true top-notch professional.', author: 'Esteban Diaz', role: 'Design Manager' },
-  { text: 'If I ever become the CEO of a big company, Ricardo would be in my top five product designers.', author: 'Javier N. Roy', role: 'Design School Director' },
+  { text: 'Ricardo is one of those people who leave a mark — a true top-notch professional.', text_es: 'Ricardo es de esas personas que dejan huella — un profesional de primerísimo nivel.', author: 'Esteban Diaz', role: 'Design Manager', role_es: 'Design Manager' },
+  { text: 'If I ever become the CEO of a big company, Ricardo would be in my top five product designers.', text_es: 'Si algún día llego a ser CEO de una gran empresa, Ricardo estaría en mi top cinco de diseñadores de producto.', author: 'Javier N. Roy', role: 'Design School Director', role_es: 'Director de escuela de diseño' },
 ];
 
 function TestimonialsSection() {
+  const { lang } = useT();
+  const es = lang === 'es';
   return (
     <section className="section">
       <div className="gf">
-        <span className="t-label" style={{ display: 'block', marginBottom: 0 }}>§ Kind words</span>
+        <span className="t-label" style={{ display: 'block', marginBottom: 0 }}>{es ? '§ Palabras amables' : '§ Kind words'}</span>
       </div>
       <div className="quotes-grid">
         {QUOTES.map((q) => (
           <figure key={q.author} className="gf" style={{ margin: 0 }}>
-            <p className="quote-text">{q.text}</p>
+            <p className="quote-text">{es ? q.text_es : q.text}</p>
             <figcaption className="quote-cap">
               <div className="quote-avatar">{q.author.split(' ').map(s => s[0]).join('').slice(0, 2)}</div>
               <div>
                 <p className="quote-name">{q.author}</p>
-                <p className="quote-role">{q.role}</p>
+                <p className="quote-role">{es ? q.role_es : q.role}</p>
               </div>
             </figcaption>
           </figure>
@@ -2598,7 +2625,8 @@ function TestimonialsSection() {
 
 /* ── Project modal ───────────────────────────────────────────────────────── */
 function Modal({ project, index, onClose }) {
-  const { t } = useT();
+  const { t, lang } = useT();
+  const es = lang === 'es';
   const i18n = t('sideProjects.' + project.id) || {};
   const overlayRef = useRef(null);
   const boxRef = useRef(null);
@@ -2743,7 +2771,7 @@ function Modal({ project, index, onClose }) {
           <div className="sp-modal-header-top">
             <div className="sp-modal-meta">
               <span className="sp-modal-dot" />
-              {i18n.meta || project.meta || 'Side project'} · {project.year || '—'}
+              {i18n.meta || (es && project.meta_es ? project.meta_es : project.meta) || (es ? 'Proyecto paralelo' : 'Side project')} · {project.year || '—'}
             </div>
             <div className="sp-modal-actions">
               <a className="btn btn-primary btn-sm" href="mailto:ricardomartinezing1@gmail.com">
@@ -2760,9 +2788,9 @@ function Modal({ project, index, onClose }) {
           <h2 className="sp-modal-title">
             {(i18n.modalTitleKeyword || project.modalTitleKeyword)
               ? <>{(i18n.modalTitleRest || project.modalTitleRest) ? (i18n.modalTitleRest || project.modalTitleRest) + ' ' : ''}<em style={{ fontFamily: 'var(--font-serif)', fontWeight: 300, fontStyle: 'italic', color: 'var(--color-forest)' }}>{i18n.modalTitleKeyword || project.modalTitleKeyword}</em></>
-              : <>{project.name}{(i18n.title || project.title) ? ' — ' + (i18n.title || project.title) : ''}</>}
+              : <>{project.name}{(i18n.title || (es && project.title_es ? project.title_es : project.title)) ? ' — ' + (i18n.title || (es && project.title_es ? project.title_es : project.title)) : ''}</>}
           </h2>
-          <p className="sp-modal-desc">{i18n.modalDesc || project.modalDesc || project.details || i18n.desc || project.desc}</p>
+          <p className="sp-modal-desc">{i18n.modalDesc || project.modalDesc || (es && project.details_es ? project.details_es : project.details) || i18n.desc || (es && project.desc_es ? project.desc_es : project.desc)}</p>
         </div>
 
         {/* ── Body / carousel ── */}
@@ -2857,6 +2885,7 @@ function CursorDot() {
    breaks native sticky), flattens its top corners as it fills the screen,
    and reveals its text on scrub.                                            */
 function AISection() {
+  const { lang } = useT();
   const wrapRef   = useRef(null);
   const stageRef  = useRef(null);
   const cardRef   = useRef(null);
@@ -2864,6 +2893,7 @@ function AISection() {
   const t1Ref     = useRef(null);
   const t2Ref     = useRef(null);
   const canvasRef = useRef(null);
+  const es = lang === 'es';
 
   useLayoutEffect(() => {
     const ctx = gsap.context(() => {
@@ -2960,7 +2990,7 @@ function AISection() {
     if (cardRef.current) ro.observe(cardRef.current);
     window.addEventListener('resize', fitTitle);
     return () => { ro.disconnect(); window.removeEventListener('resize', fitTitle); };
-  }, []);
+  }, [lang]);   // refit + rebuild the WebGL heading texture when language changes
 
   // Fluid simulation — initialise after mount, clean up on unmount
   useEffect(() => {
@@ -2993,12 +3023,25 @@ function AISection() {
           {/* WebGL fluid canvas — inside card so border-radius clips it correctly */}
           <canvas ref={canvasRef} className="ai-canvas" aria-hidden="true" />
           <h2 ref={titleRef} className="ai-title">
-            <span className="ai-line ai-line-1">Where <span className="ai-ai">AI</span> fits in</span>
-            <span className="ai-line ai-line-2">my process</span>
+            {es ? (
+              <React.Fragment>
+                <span className="ai-line ai-line-1">Dónde encaja la <span className="ai-ai">IA</span></span>
+                <span className="ai-line ai-line-2">en mi proceso</span>
+              </React.Fragment>
+            ) : (
+              <React.Fragment>
+                <span className="ai-line ai-line-1">Where <span className="ai-ai">AI</span> fits in</span>
+                <span className="ai-line ai-line-2">my process</span>
+              </React.Fragment>
+            )}
           </h2>
           <div className="ai-texts">
-            <p ref={t1Ref} className="ai-text">I treat AI as a fast, tireless collaborator — never a replacement for judgment. Early on it helps me widen the search space: drafting variations, pressure-testing copy and turning rough research notes into patterns I can actually read.</p>
-            <p ref={t2Ref} className="ai-text">Mid-project it speeds up the unglamorous work — realistic placeholder content, interview summaries, quick flows so I can react to something concrete instead of a blank canvas. What it never does is decide. The taste, the trade-offs and the responsibility for what ships stay with me.</p>
+            <p ref={t1Ref} className="ai-text">{es
+              ? 'Trato la IA como un colaborador rápido e incansable — nunca un sustituto del criterio. Al principio me ayuda a ampliar el espacio de búsqueda: bocetar variaciones, poner a prueba el copy y convertir notas de investigación en bruto en patrones que puedo leer de verdad.'
+              : 'I treat AI as a fast, tireless collaborator — never a replacement for judgement. Early on it helps me widen the search space: drafting variations, pressure-testing copy and turning rough research notes into patterns I can actually read.'}</p>
+            <p ref={t2Ref} className="ai-text">{es
+              ? 'A mitad de proyecto acelera el trabajo poco glamuroso — contenido placeholder realista, resúmenes de entrevistas, flujos rápidos para reaccionar ante algo concreto en vez de un lienzo en blanco. Lo que nunca hace es decidir. El gusto, los trade-offs y la responsabilidad de lo que se lanza siguen siendo míos.'
+              : 'Mid-project it speeds up the unglamorous work — realistic placeholder content, interview summaries, quick flows so I can react to something concrete instead of a blank canvas. What it never does is decide. The taste, the trade-offs and the responsibility for what ships stay with me.'}</p>
           </div>
         </div>
       </div>
