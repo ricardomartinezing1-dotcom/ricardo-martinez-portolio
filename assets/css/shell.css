@@ -279,5 +279,8 @@
 .t-label-dark { color: rgba(245,245,240,.65); }
 .on-dark { color: var(--color-white) !important; }
 .lead-dark { color: rgba(245,245,240,.82) !important; }
-</content>
-</invoke>
+
+/* ── Design-system typography (shared) ── */
+.nav-brand-text, .nav-brand-text em, .nav-mobile-logo .nav-brand-text em { font-family: var(--font-heading); font-weight: 600; font-style: normal; }
+.nav-m-link { font-family: var(--font-heading); font-weight: 700; }
+.nav-item, .nav-cta, .lang-toggle-btn, .footer-col-link, .btn { font-weight: 400; }

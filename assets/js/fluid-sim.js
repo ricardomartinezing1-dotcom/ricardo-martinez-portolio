@@ -255,7 +255,7 @@ function Ripple(canvas, section){
         ctx.fillStyle = '#1A1A1A';
         ctx.fillText(pre, x1, y1);
         var preW = ctx.measureText(pre).width + ls1;
-        // "AI" with the brand gradient (≈228deg: top-right → bottom-left)
+        // "AI" with the brand gradient fill (≈228deg: top-right → bottom-left)
         var aiX = x1 + preW;
         var aiW = ctx.measureText(mid).width;
         var grad = ctx.createLinearGradient(aiX + aiW, y1 - size1*0.5, aiX, y1 + size1*0.5);
@@ -274,12 +274,13 @@ function Ripple(canvas, section){
       if(l2){
         var cs2   = getComputedStyle(l2);
         var size2 = parseFloat(cs2.fontSize) * dpr;
+        var ls2   = (parseFloat(cs2.letterSpacing) || 0) * dpr;
         var r2    = l2.getBoundingClientRect();
         var x2    = (r2.left - cardR.left) * dpr;
         var y2    = (r2.top - cardR.top + r2.height/2) * dpr;
-        if('letterSpacing' in ctx) ctx.letterSpacing = '0px';
-        ctx.font = (cs2.fontStyle || 'italic') + ' ' + (cs2.fontWeight || '300') + ' ' + size2 + 'px ' + cs2.fontFamily;
-        ctx.fillStyle = '#2D6A4F';
+        if('letterSpacing' in ctx) ctx.letterSpacing = ls2 + 'px';
+        ctx.font = 'normal ' + (cs2.fontWeight || '700') + ' ' + size2 + 'px ' + cs2.fontFamily;
+        ctx.fillStyle = '#1A1A1A';
         ctx.fillText(l2.textContent, x2, y2);
       }
 

@@ -340,3 +340,20 @@ body.reveal-ready .reveal.in { opacity: 1; transform: translateY(0); }
 @media (max-width: 700px) { .cs-grid-3 { grid-template-columns: 1fr; } }
 .cs-grid-fig { margin: 0; display: flex; flex-direction: column; gap: var(--space-3); }
 .cs-grid-fig .cs-grid-item { aspect-ratio: 4/3; }
+
+
+/* ── Design-system typography: headings → Host Grotesk 700 · body → Geist 400 ── */
+.display, .h1, .h2, .h3, .cs-hero-title, .cs-section-title,
+.cs-card h4, .cs-decision h4, .cs-callout h4, .cs-goal h4, .cs-problem h4,
+.cs-cat h5, .cs-goal-num, .cs-metric-val, .cs-stat-val,
+.display em, .h1 em, .h2 em, .h3 em, .cs-end h2 em {
+  font-family: var(--font-heading); font-weight: 700; font-style: normal;
+}
+/* title accents: identical colour, size and spacing as the title */
+.display em, .h1 em, .h2 em, .h3 em, .cs-end h2 em {
+  color: inherit; letter-spacing: inherit; font-size: inherit;
+}
+.cs-hero-sub { font-family: var(--font-heading); font-weight: 400; font-style: normal; }
+.body em, .cs-takeaway em { font-family: var(--font-body); font-weight: 400; font-style: italic; }
+body, .body, .cs-hero-fact-val, .cs-toc-link, .cs-card p, .cs-decision p,
+.cs-decision .trade, .cs-prose p, .cs-figure-caption, .cs-goal p, .cs-problem p { font-weight: 400; }
