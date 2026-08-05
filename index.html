@@ -60,6 +60,7 @@ body {
   color: var(--color-dark);
   font-family: var(--font-sans);
   font-size: 16px;
+  font-weight: 500;
   line-height: 1.7;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
@@ -253,7 +254,7 @@ button { font-family: inherit; cursor: pointer; }
 .card-thumb-mark { font: 700 clamp(56px,10vw,88px) var(--font-sans); letter-spacing: -0.04em; opacity: .8; }
 .card-thumb-name { position: absolute; bottom: 14px; left: 16px; font: 600 11px var(--font-sans); text-transform: uppercase; letter-spacing: .1em; opacity: .65; }
 .card-label { margin-bottom: 8px; display: block; }
-.card-title { font: 600 21px var(--font-sans); color: var(--color-dark); margin: 0 0 8px; line-height: 1.3; }
+.card-title { font: 600 26px var(--font-sans); color: var(--color-dark); margin: 0 0 8px; line-height: 1.3; }
 .card-desc { font: 400 15px var(--font-sans); color: var(--color-mid); line-height: 1.55; margin: 0 0 16px; }
 
 /* ── About (forest-green block, photo + quote + principles) ──────────────── */
@@ -461,7 +462,7 @@ button { font-family: inherit; cursor: pointer; }
 .proj-panel { height: 150vh; display: flex; align-items: center; }
 .proj-panel-content { max-width: 480px; }
 .proj-panel-meta { font: 500 11px var(--font-mono); text-transform: uppercase; letter-spacing: .1em; color: var(--color-gray); margin-bottom: 16px; display: block; }
-.proj-panel-title { font: 600 clamp(24px,2.8vw,38px) var(--font-sans); letter-spacing: -0.02em; line-height: 1.15; color: var(--color-dark); margin: 0 0 20px; }
+.proj-panel-title { font: 600 clamp(30px,3.4vw,46px) var(--font-sans); letter-spacing: -0.02em; line-height: 1.15; color: var(--color-dark); margin: 0 0 20px; }
 .proj-panel-title em { font-family: var(--font-serif); font-weight: 300; font-style: italic; letter-spacing: 0; font-size: 1.05em; color: var(--color-forest); }
 /* Dark pill CTA — mirrors .nav-cta shape, dark colourway */
 .btn-cta-dark {
@@ -939,10 +940,10 @@ body { overflow-y: scroll; }
 }
 /* small decorative bits that used the old serif → body face */
 .tl-org, .card-cursor .cc-cs, .quote-avatar { font-family: var(--font-body); font-style: normal; }
-/* body / buttons render at Geist Regular 400 */
+/* body / buttons render at Geist Medium 500 */
 body, .body, .t-lead, .nav-item, .nav-cta, .btn, .lang-toggle-btn,
 .card-desc, .side-ov-desc, .proj-panel-desc, .tl-section-body,
-.quote-name, .quote-role, .footer-col-link, .hero-lead p { font-weight: 400; }
+.quote-name, .quote-role, .footer-col-link, .hero-lead p { font-weight: 500; }
 </style>
 </head>
 <body>
@@ -1521,7 +1522,7 @@ function Hero({ onPrimary, onGhost }) {
         </div>
         {/* Right column */}
         <div className="hero-lead">
-          <p style={{ font: '400 16px var(--font-sans)', lineHeight: 1.65, color: 'var(--color-mid)', margin: '0 0 28px' }}>
+          <p style={{ font: '500 16px var(--font-sans)', lineHeight: 1.65, color: 'var(--color-mid)', margin: '0 0 28px' }}>
             <HeroWords words={tab.bodyWords} cls="lead-wi" />
           </p>
           <button className="btn btn-dark" onClick={handleCta}>{tab.cta}</button>
